@@ -112,5 +112,10 @@ public class DishController {
         dishService.update(ids);
         return R.success("修改成功");
     }
+    @PostMapping("/status/1")
+    public R<String> update1(Long ids){
+        dishService.update1(ids);
+        return R.success("修改成功");
+    }
 }
 
