@@ -2,6 +2,7 @@ package com.nihao.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nihao.common.R;
 import com.nihao.dto.DishDto;
@@ -107,8 +108,9 @@ public class DishController {
     停售
      */
     @PostMapping("/status/0")
-    public R<String> update(long ids) {
-        return null;
+    public R<String> update(Dish dish) {
+        dishService.update(dish);
+        return R.success("修改成功");
     }
 }
 
