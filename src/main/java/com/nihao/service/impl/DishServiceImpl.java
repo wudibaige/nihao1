@@ -68,9 +68,9 @@ public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements Dis
     }
 
     @Override
-    public void update(Dish dish) {
+    public void update(long ids) {
         UpdateWrapper updateWrapper=new UpdateWrapper();
-            updateWrapper.eq("id",dish.getId());
+            updateWrapper.eq("id",ids);
             updateWrapper.set("status","0");
             baseMapper.update(null,updateWrapper);
     }

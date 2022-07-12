@@ -108,8 +108,8 @@ public class DishController {
     停售
      */
     @PostMapping("/status/0")
-    public R<String> update(Dish dish) {
-        dishService.update(dish);
+    public R<String> update(Long ids) {
+        dishService.update(ids);
         return R.success("修改成功");
     }
 }
