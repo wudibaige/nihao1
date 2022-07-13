@@ -1,8 +1,6 @@
 package com.nihao.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nihao.common.R;
 import com.nihao.dto.DishDto;
@@ -116,6 +114,19 @@ public class DishController {
     public R<String> update1(String ids){
         dishService.update1(ids);
         return R.success("修改成功");
+    }
+    /*
+    根据条件查询对应的套餐信息
+     */
+    @GetMapping("/list")
+    public R<List<Dish>> list(Dish dish){
+        //构建查询条件
+        LambdaQueryWrapper<Dish> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(dish.getCategoryId()!=null,Dish::getCategoryId,dish.getCategoryId());
+        queryWrapper.eq(Dish::getStatus,1);
+        queryWrapper.orderByDesc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        List<Dish> list = dishService.list(queryWrapper);
+        return R.success(list);
     }
 }
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.nihao.common.R;
 import com.nihao.dto.DishDto;
 import com.nihao.entity.Dish;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
