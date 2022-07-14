@@ -1,11 +1,14 @@
 package com.nihao.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nihao.common.R;
 import com.nihao.dto.SetmealDto;
 import com.nihao.entity.Category;
 import com.nihao.entity.Setmeal;
+import com.nihao.mapper.SetmealMapper;
 import com.nihao.service.CategoryService;
 import com.nihao.service.SetmealDishService;
 import com.nihao.service.SetmealService;
@@ -102,5 +105,28 @@ public class SetmealController {
         setmealService.removeWithDish(ids);
         return R.success("删除成功");
     }
+    /*
+    启售
+     */
+    @PostMapping("/status/1")
+    public R<String> update(@RequestParam List<Long> ids) {
+        for (Long id : ids) {
+        UpdateWrapper<Setmeal> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("id",id);
+        Setmeal setmeal=new Setmeal();
+        setmeal.setStatus(1);
+        setmealService.update(setmeal,updateWrapper);}
+        return R.success("成功");
     }
+    @PostMapping("status/0")
+    public R<String> update1(@RequestParam List<Long> ids){
+        for (Long id : ids) {
+            UpdateWrapper<Setmeal> updateWrapper=new UpdateWrapper<>();
+            updateWrapper.eq("id",id);
+            Setmeal setmeal=new Setmeal();
+            setmeal.setStatus(0);
+            setmealService.update(setmeal,updateWrapper);
+        }return R.success("成功");
+    }
+}
 
