@@ -1,6 +1,7 @@
 package com.nihao.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nihao.common.R;
 import com.nihao.dto.DishDto;
@@ -94,11 +95,7 @@ public class DishController {
         String[] split = ids.split(",");
         for (String s : split) {
             delist.add(s);
-        }
-        if (ids.length()!=1){
-        dishService.removeByIds(delist);
-        }else {
-            dishService.removeById(ids);
+            dishService.removeByIds(delist);
         }
         return R.success("删除成功");
     }
@@ -106,13 +103,25 @@ public class DishController {
     停售
      */
     @PostMapping("/status/0")
-    public R<String> update(String ids) {
-        dishService.update(ids);
-        return R.success("修改成功");
+    public R<String> update(@RequestParam List<Long> ids) {
+        for (Long id : ids) {
+            UpdateWrapper<Dish> updateWrapper=new UpdateWrapper<>();
+            updateWrapper.eq("id",id);
+            Dish dish=new Dish();
+            dish.setStatus(0);
+            dishService.update(dish,updateWrapper);
+        }
+       return R.success("成功");
     }
     @PostMapping("/status/1")
-    public R<String> update1(String ids){
-        dishService.update1(ids);
+    public R<String> update1(@RequestParam List<Long> ids){
+        for (Long id : ids) {
+            UpdateWrapper<Dish> updateWrapper=new UpdateWrapper<>();
+            updateWrapper.eq("id",id);
+            Dish dish=new Dish();
+            dish.setStatus(1);
+            dishService.update(dish,updateWrapper);
+        }
         return R.success("修改成功");
     }
     /*
