@@ -73,6 +73,7 @@ public class ShoppingCartController {
         if (dishId!=null){
         updateWrapper.eq(ShoppingCart::getDishId,dishId);
         updateWrapper.ge(ShoppingCart::getNumber,1);
+//        updateWrapper.set(ShoppingCart::getNumber,number-1);
         shoppingCart.setNumber(number-1);
 //        shoppingCartService.updateById(shoppingCart);
         shoppingCartService.update(shoppingCart,updateWrapper);
